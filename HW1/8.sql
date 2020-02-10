@@ -1,0 +1,1 @@
+select hotelName, COUNT(*) as `count` from Room r join Hotel h on h.hotelNo=r.hotelNo where h.city="London" group by hotelName;

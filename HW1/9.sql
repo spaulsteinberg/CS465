@@ -1,0 +1,1 @@
+update Room set price=(.05*price + price);

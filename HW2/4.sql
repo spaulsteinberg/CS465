@@ -1,0 +1,1 @@
+create view CurrentGuestCount as select distinct h.hotelNo, COUNT(*) as `guestCount` from Booking b, Hotel h where b.dateFrom <= CURDATE() and CURDATE() < b.dateTo and h.hotelNo = b.hotelNo group by hotelNo;

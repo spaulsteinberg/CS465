@@ -1,0 +1,1 @@
+select * from Room where price < 40.00 and (type="double" or type="family");

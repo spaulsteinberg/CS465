@@ -1,0 +1,1 @@
+select SUM(r.price) from Room r, Hotel h, Booking b where (r.hotelNo=h.hotelNo and r.hotelNo=b.hotelNo) and h.hotelName = 'Grosvenor Hotel' and CURDATE() >= b.dateFrom and CURDATE() < b.dateTo and b.roomNo = r.roomNo;

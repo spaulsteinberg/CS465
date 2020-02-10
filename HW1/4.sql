@@ -1,0 +1,1 @@
+select SUM(price) from Room where type="double";

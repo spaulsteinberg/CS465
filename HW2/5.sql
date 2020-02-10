@@ -1,0 +1,1 @@
+create view HotelData as select g.guestName, h.hotelName from Guest g, Hotel h, Booking b where b.dateTo > CURDATE() and CURDATE() >= b.dateFrom and h.hotelNo = b.hotelNo and b.guestNo = g.guestNo;
