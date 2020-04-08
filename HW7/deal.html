@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Deal or No Deal</title>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <meta charset="UTF-8">
+    </head>
+    <body>
+        <h2>Instructions</h2>
+        <p>To play click on the Start Game button</p>
+        <p>Choose one of the 10 light blue buttons to be your suitcase
+            that you may choose to hold until the end of the game.
+        </p>
+        <p>Then choose another button, which corresponds to opening a suitcase with a certain money amount</p>
+        <p>Then choose between Deal or opening another suicase. If you choose Deal, then the game ends and you win the 
+            amount of money given in the offer box. If you open another suitcase, then you will recieve a new offer.
+        </p>
+        <p>Continue in this fashion until you choose Deal or until you have opened all of the suitcases, in which you will
+            win the amount that is in the suitcase you chose at the beginning of the game.
+        </p>
+        <p>To play another game, just click on the Start Game button again.</p>
+        <hr>
+        <div class="deal-box">
+            <form class="master-form">
+                <div class="offer">
+                    <label class="offer-label">Offer <input class="offer-box" type="number" maxlength="7" readonly></label>
+                </div>
+                <div class="row">
+                    <div class="column-1">
+                        <div class="button-group-1">
+                            <button class="g-1">1</button>
+                            <button class="g-1">2</button>
+                            <button class="g-1">3</button>
+                            <button class="g-1">4</button>
+                            <button class="g-1">5</button>
+                        </div>
+                        <div class="button-group-1">
+                            <button class="g-2">6</button>
+                            <button class="g-2">7</button>
+                            <button class="g-2">8</button>
+                            <button class="g-2">9</button>
+                            <button class="g-2" id="large">10</button>
+                        </div>
+                    </div>
+                    <div class="column-2">
+                        <table class="amounts">
+                            <tr><td><input type="checkbox">$0.01</td></tr>
+                            <tr><td><input type="checkbox">$1</td></tr>
+                            <tr><td><input type="checkbox">$5</td></tr>
+                            <tr><td><input type="checkbox">$10</td></tr>
+                            <tr><td><input type="checkbox">$100</td></tr>
+                            <tr><td><input type="checkbox">$1000</td></tr>
+                            <tr><td><input type="checkbox">$10000</td></tr>
+                            <tr><td><input type="checkbox">$100000</td></tr>
+                            <tr><td><input type="checkbox">$500000</td></tr>
+                            <tr><td><input type="checkbox">$1000000</td></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="admin-buttons">
+                        <button id="bottom-button">Deal</button>
+                        <button id="bottom-button">Start New Game</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </body>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        .admin-buttons {
+            display: flex;
+            justify-content: center;
+        }
+        #bottom-button {
+            color: yellow;
+            background-color: green;
+            width: 120px;
+            padding: 15px 0px 15px 0px;
+            margin-right: 5px;
+        }
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+        .column-1 {
+            float: left;
+            width: 60%;
+        }
+        .column-2 {
+            float: left;
+            width: 40%;
+        }
+        .row {
+            background-color: lightgreen;
+            padding-bottom: 50px;
+        }
+        .button-group-1 {
+            padding-bottom: 5px;
+        }
+        #large {
+            padding: 15px 50px 15px 43px;
+        }
+        .g-1, .g-2 {
+            background-color: lightskyblue;
+            padding: 15px 50px 15px 50px;
+        }
+        .master-form {
+            padding: 20px;
+        }
+        .offer {
+            display: flex;
+            justify-content: center;
+            padding-bottom: 50px;
+        }
+        .deal-box {
+            background-color: lightgreen;
+            border: 1px solid black;
+        }
+        .offer-box {
+            width: 50%;
+        }
+    </style>
+</html>
