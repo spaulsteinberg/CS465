@@ -2,11 +2,13 @@ var ids = [];
 var vals = [];
 var valueArray = [0.01, 1, 5, 10, 100, 1000, 10000, 100000, 500000, 1000000];
 var selectedCase = "";
+var total = 0;
 initializeBoard(); //so it starts intialized;
 function initializeBoard(){
     count = 0;
     shuffle(valueArray);
     vals = valueArray;
+    total = 1611116.01;
     var checkBoxes = document.getElementsByClassName("cbox");
     for (var i = 0; i < checkBoxes.length; i++){
         checkBoxes.item(i).checked = false;
@@ -15,6 +17,7 @@ function initializeBoard(){
     for (var i = 0; i < suitcases.length; i++){
         suitcases.item(i).value = valueArray[i];
     }
+    document.getElementById("bottom-button-deal").disabled = true;
 }
 /* ES6 shuffling from site ! */
 function shuffle(cleanArray) {
@@ -33,6 +36,9 @@ function badCheck(){
 
 function checkVal(){
     var flag = false;
+    total = 1611116.01;
+    var sum = 0;
+    var zeroed = 0;
     var suitcases = document.getElementsByClassName("suitcase");
     for (var i = 0; i < suitcases.length; i++){
         if (suitcases.item(i).clicked == true){
@@ -49,6 +55,7 @@ function checkVal(){
         box.style.color = "silver";
     }
     else {
+        document.getElementById("bottom-button-deal").disabled = false;
         var box = document.getElementById(event.target.id);
         var index = -1;
         for (var i = 0; i < suitcases.length; i++){
@@ -68,50 +75,71 @@ function checkVal(){
         box.style.backgroundColor = "gold";
         box.textContent = "$" + vals[index];
         var sum = 0;
-        var zeroed = 0;
+        var zeroed = [];
+        var j = 0;
         for (var i = 0; i < suitcases.length; i++){
             if (suitcases.item(i).clicked == true){
-                zeroed++;
+                zeroed[j] = i;
+                j++;
             }
-            else {
+        }
+        console.log(zeroed);
+        for (var i = 0; i < suitcases.length; i++){
+            if (!zeroed.includes(i)){
                 sum += vals[i];
             }
         }
-        var offer = Math.floor((sum/(10-zeroed)) * 0.9);
+        var suitcases = document.getElementsByClassName("suitcase");
+        var caseValue = -1;
+        for (var i = 0; i < suitcases.length; i++){
+            if (suitcases.item(i).id == selectedCase){
+                caseValue = vals[i];
+                break;
+            }
+        }
+        console.log(sum + caseValue);
+        var offer = Math.floor((sum+caseValue)/(11-zeroed.length)*.9);
         var box = document.getElementById("offer-box");
         box.value = offer;
     }
     var allDoneFlag = false;
+    for (var i = 0; i < suitcases.length; i++){
+        if (suitcases.item(i).clicked == true){
+            continue;
+        }
+        else {
+            allDoneFlag = true;
+        }
+    }
+    if (allDoneFlag == false){
+        var sum = 0;
+        var zeroed = 0;
+        suitcasesExhausted();
+        initializeBoard();
+    }
+    if(document.getElementById("bottom-button-deal").clicked == true){
+        var sum = 0;
+        var zeroed = 0;
+        var box = document.getElementById("offer-box");
+        alert("Deal! You won: " + "$" + box.value);
+        document.getElementById("bottom-button-deal").textContent = "Deal";
+        
+        var suitcases = document.getElementsByClassName("suitcase");
+        var caseValue = -1;
         for (var i = 0; i < suitcases.length; i++){
-            if (suitcases.item(i).clicked == true){
-                continue;
-            }
-            else {
-                allDoneFlag = true;
+            if (suitcases.item(i).id == selectedCase){
+                caseValue = vals[i];
+                break;
             }
         }
-        if (allDoneFlag == false){
-            suitcasesExhausted();
-            initializeBoard();
+        for (var i = 0; i < suitcases.length; i++){
+            suitcases.item(i).disabled = true;
         }
-}
-function makeDeal(){
-    var suitcases = document.getElementsByClassName("suitcase");
-    var caseValue = -1;
-    for (var i = 0; i < suitcases.length; i++){
-        if (suitcases.item(i).id == selectedCase){
-            caseValue = vals[i];
-            break;
-        }
+        document.getElementById(selectedCase).textContent = "$" + caseValue;
+        alert("The value in your case was: " + "$" + caseValue);
+        document.getElementById("bottom-button-deal").color = "black";
+        initializeBoard();
     }
-    var box = document.getElementById("offer-box");
-    
-    document.getElementById(selectedCase).textContent = "$" + caseValue;
-    for (var i = 0; i < suitcases.length; i++){
-        suitcases.item(i).disabled = true;
-    }
-    alert("Deal! You won: " + box.value);
-    alert("The value in your case was: " + caseValue);
 }
 function suitcasesExhausted(){
     var suitcases = document.getElementsByClassName("suitcase");
@@ -126,5 +154,5 @@ function suitcasesExhausted(){
         suitcases.item(i).disabled = true;
     }
     document.getElementById(selectedCase).textContent = "$" + caseValue;
-    alert("Game Over! The value in your case was: " + caseValue);
+    alert("Game Over! The value in your case was: " + "$" + caseValue);
 }
